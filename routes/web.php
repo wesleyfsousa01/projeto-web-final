@@ -86,3 +86,7 @@ Route::fallback(function() {
     <a href="'.route('site.index').'"><Strong>Pagina principal</Strong></a>
     Clique aqui para ir para a página inicial';
 });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
