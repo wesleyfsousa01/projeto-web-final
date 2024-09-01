@@ -34,26 +34,37 @@ class PedidoProdutoController extends Controller
     {
         $regras = [
             'produto_id' => 'exists:produtos,id',
-            'quantidade' => 'required'
+            'quantidade' => 'required|integer|min:1'
         ];
 
         $feedback = [
             'produto_id.exists' => 'O produto informado não existe',
-            'required' => 'O campo :attribute deve possuir um valor válido'
+            'quantidade.required' => 'O campo quantidade deve possuir um valor válido',
+            'quantidade.integer' => 'A quantidade deve ser um número inteiro',
+            'quantidade.min' => 'A quantidade deve ser pelo menos 1',
         ];
 
         $request->validate($regras, $feedback);
 
-        // $pedidoProduto = new PedidoProduto();
-        // $pedidoProduto->pedido_id = $pedido->id;
-        // $pedidoProduto->produto_id = $request->get('produto_id');
-        // $pedidoProduto->quantidade = $request->get('quantidade');
-        // $pedidoProduto->save();
+        // Recupera o produto pelo ID
+        $produto = Produto::find($request->get('produto_id'));
 
-        $pedido->produtos()->attach(
-            $request->get('produto_id'),
-            ['quantidade' => $request->get('quantidade')]
-        );
+        if ($produto) {
+            // Calcula o subtotal
+            $quantidade = $request->get('quantidade');
+            $subtotal = $produto->preco * $quantidade;
+
+            // Adiciona o produto ao pedido com a quantidade e o subtotal
+            $pedido->produtos()->attach(
+                $produto->id,
+                ['quantidade' => $quantidade, 'subtotal' => $subtotal]
+            );
+
+            // Atualiza o total do pedido somando o subtotal do novo item
+            $total = $pedido->produtos()->sum('pedidos_produtos.subtotal');
+            $pedido->total = $total;
+            $pedido->save();
+        }
 
         return redirect()->route('pedido-produto.create', ['pedido' => $pedido->id]);
     }
@@ -88,7 +99,19 @@ class PedidoProdutoController extends Controller
     public function destroy(PedidoProduto $pedidoProduto, $pedido_id)
     {
         //$pedido->produtos()->detach($produto->id);
+
+        // Remove o item da tabela pivot
         $pedidoProduto->delete();
+
+        // Recupera o pedido para recalcular o total
+        $pedido = Pedido::find($pedido_id);
+
+        if ($pedido) {
+            // Recalcula o total do pedido somando todos os subtotais restantes
+            $total = $pedido->produtos()->sum('pedidos_produtos.subtotal');
+            $pedido->total = $total;
+            $pedido->save();
+        }
 
         return redirect()->route('pedido-produto.create', ['pedido' => $pedido_id]);
     }

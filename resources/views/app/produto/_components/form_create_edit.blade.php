@@ -28,6 +28,10 @@
             <option value="{{ $unidade->id }}" {{$produto->unidade_id ?? old('unidade_id') == $unidade->id ? 'selected' : '' }}>{{$unidade->descricao}}</option>
         @endforeach
     </select>
+
+    <input type="number" name="preco" class="borda-preta" placeholder="Preço" value="{{$produto->preco ?? old('preco')}}">
+    {{$errors->has('preco') ? $errors->first('preco') : '' }}
+
     {{$errors->has('unidade_id') ? $errors->first('unidade_id') : '' }}
     <button type="submit" class="borda-preta">Cadastrar</button>
 </form>

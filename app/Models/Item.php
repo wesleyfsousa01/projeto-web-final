@@ -12,7 +12,7 @@ class Item extends Model
     use HasFactory;
 
     protected $table = 'produtos';
-    protected $fillable = ['nome', 'descricao', 'peso', 'unidade_id', 'fornecedor_id'];
+    protected $fillable = ['nome', 'descricao', 'peso', 'unidade_id', 'fornecedor_id', 'preco'];
 
     public function itemDetalhe(): HasOne {
         return $this->hasOne(ItemDetalhe::class, 'produto_id', 'id');

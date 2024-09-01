@@ -23,10 +23,10 @@
                             <th>Fornecedor</th>
                             <th>Email</th>
                             <th>Peso</th>
-                            <th>Unidade ID</th>
-                            <th>Comprimento</th>
+                            {{-- <th>Unidade ID</th> --}}
+                            {{-- <th>Comprimento</th>
                             <th>Altura</th>
-                            <th>Largura</th>
+                            <th>Largura</th> --}}
                             <th colspan="3">Ações</th>
                         </tr>
                     </thead>
@@ -39,10 +39,10 @@
                                 <td>{{ $produto->fornecedor->nome }}</td>
                                 <td>{{ $produto->fornecedor->email }}</td>
                                 <td>{{ $produto->peso }}</td>
-                                <td>{{ $produto->unidade_id }}</td>
+                                {{-- <td>{{ $produto->unidade_id }}</td>
                                 <td>{{$produto->produtoDetalhe->comprimento ?? ''}}</td>
                                 <td>{{$produto->produtoDetalhe->altura ?? ''}}</td>
-                                <td>{{$produto->produtoDetalhe->largura ?? ''}}</td>
+                                <td>{{$produto->produtoDetalhe->largura ?? ''}}</td> --}}
                                 <td>
                                     <a href="{{route('produto.show', ['produto'=> $produto->id])}}">Visualizar</a>
                                 </td>
@@ -57,7 +57,7 @@
                                 </td>
                             </tr>
 
-                            <tr>
+                            {{-- <tr>
                                 <th colspan="12">
                                     <p>Pedidos</p>
 
@@ -67,7 +67,7 @@
 
                                     @endforeach
                                 </th>
-                            </tr>
+                            </tr> --}}
                         @endforeach
                     </tbody>
 

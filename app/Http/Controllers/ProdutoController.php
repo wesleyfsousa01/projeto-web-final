@@ -42,6 +42,7 @@ class ProdutoController extends Controller
             'peso' => 'required|integer',
             'unidade_id' => 'exists:unidades,id',
             'fornecedor_id' => 'exists:fornecedores,id',
+            'preco' => 'required|numeric|min:0|regex:/^\d+(\.\d{1,2})?$/',
         ];
 
         $feedback = [
@@ -53,6 +54,10 @@ class ProdutoController extends Controller
             'peso.integer' => 'O campo peso deve ser um número inteiro',
             'unidade_id.exists' => 'A unidade de medida informada não existe',
             'fornecedor_id.exists' => 'O fornecedor informado não existe',
+            'preco.required' => 'O campo preço é obrigatório.',
+            'preco.numeric' => 'O campo preço deve ser um número.',
+            'preco.min' => 'O campo preço não pode ser negativo.',
+            'preco.regex' => 'O campo preço deve ter no máximo duas casas decimais.',
         ];
 
         $request->validate($regras, $feedback);

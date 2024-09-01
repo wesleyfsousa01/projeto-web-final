@@ -17,16 +17,19 @@
             <h4>Detalhes do pedido</h4>
             <p>ID do pedido: {{ $pedido->id }}</p>
             <p>ID do Cliente: {{ $pedido->cliente_id }}</p>
+            <p>Nome: {{ $pedido->cliente->nome }}</p>
 
-            <div style="width: 50%; margin-left: auto; margin-right: auto;">
+            <div style="width: 80%; margin-left: auto; margin-right: auto;">
                 <h4>Itens do pedido:</h4>
 
                 <table border="1" width="100%">
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Nome do produto</th>
-                            <th>Data de inclusão do item no pedido</th>
+                            <th>Qtd</th>
+                            <th>Val. Unt</th>
+                            <th>Produto</th>
+                            <th>Data</th>
+                            <th>Subtotal</th>
                             <th></th>
                         </tr>
                     </thead>
@@ -34,9 +37,11 @@
 
                         @foreach ($pedido->produtos as $produto)
                             <tr>
-                                <td>{{ $produto->id }}</td>
+                                <td>{{ $produto->pivot->quantidade }}</td>
+                                <td>{{ $produto->preco }}</td>
                                 <td>{{ $produto->nome }}</td>
-                                <td>{{ $produto->pivot->created_at->format('d/m/Y H:i:s') }}</td>
+                                <td>{{ $produto->pivot->created_at->format('d/m/Y') }}</td>
+                                <td>{{$produto->pivot->subtotal}}</td>
                                 <td>
                                     <form id="form_{{ $produto->pivot->id }}"
                                         action="{{ route('pedido-produto.destroy', ['pedidoProduto' => $produto->pivot->id, 'pedido_id' => $pedido->id]) }}"
@@ -53,6 +58,12 @@
                             </tr>
                         @endforeach
                     </tbody>
+                    <tfoot>
+                        <tr>
+                            <th>Total:</th>
+                            <th colspan="6">R${{' ' .$pedido->total}}</th>
+                        </tr>
+                    </tfoot>
                 </table>
 
                 @component('app.pedido_produto._components.form_create', ['pedido' => $pedido, 'produtos' => $produtos])

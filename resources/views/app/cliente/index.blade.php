@@ -10,7 +10,7 @@
         <div class="menu">
             <ul>
                 <li><a href="{{route('cliente.create')}}">Novo</a></li>
-                <li><a href="">Consulta</a></li>
+                <li><a href="#">Consulta</a></li>
             </ul>
         </div>
         <div class="informacao-pagina">
@@ -19,6 +19,7 @@
                     <thead>
                         <tr>
                             <th>Nome</th>
+                            <th>E-mail</th>
                             <th></th>
                             <th></th>
                             <th></th>
@@ -29,6 +30,7 @@
                         @foreach ( $clientes as $cliente )
                             <tr>
                                 <td>{{ $cliente->nome }}</td>
+                                <td>{{ $cliente->email }}</td>
                                 <td>
                                     <a href="{{route('cliente.show', ['cliente'=> $cliente->id])}}">Visualizar</a>
                                 </td>
