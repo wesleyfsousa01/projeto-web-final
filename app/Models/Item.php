@@ -21,4 +21,15 @@ class Item extends Model
     public function fornecedor(): BelongsTo {
         return $this->belongsTo(Fornecedor::class);
     }
+
+    public function pedidos() {
+        return $this->belongsToMany(Pedido::class, 'pedidos_produtos', 'produto_id', 'pedido_id');
+    }
+
+    /*
+        Pedido: classe mapeada pelo Eloquent
+        'pedidos_produtos' Tabela pivô para relacinamento N:N
+        'produto_id' Fk da tabela mapeada (pedidos_produtos)
+        'produto_id' FK da tabela pedidos
+    */
 }

@@ -12,7 +12,6 @@ class Pedido extends Model
     protected $fillable = ['cliente_id'];
 
     public function produtos(){
-        return $this->belongsToMany(Produto::class, 'pedidos_produtos');
+        return $this->belongsToMany(Produto::class, 'pedidos_produtos')->withPivot('id','created_at');
     }
 }
- 

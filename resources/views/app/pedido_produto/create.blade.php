@@ -9,7 +9,7 @@
         </div>
         <div class="menu">
             <ul>
-                <li><a href="{{route('pedido.index')}}">Voltar</a></li>
+                <li><a href="{{ route('pedido.index') }}">Voltar</a></li>
                 <li><a href="">Consulta</a></li>
             </ul>
         </div>
@@ -18,7 +18,7 @@
             <p>ID do pedido: {{ $pedido->id }}</p>
             <p>ID do Cliente: {{ $pedido->cliente_id }}</p>
 
-            <div style="width: 30%; margin-left: auto; margin-right: auto;">
+            <div style="width: 50%; margin-left: auto; margin-right: auto;">
                 <h4>Itens do pedido:</h4>
 
                 <table border="1" width="100%">
@@ -26,20 +26,36 @@
                         <tr>
                             <th>ID</th>
                             <th>Nome do produto</th>
+                            <th>Data de inclusão do item no pedido</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
+
                         @foreach ($pedido->produtos as $produto)
                             <tr>
                                 <td>{{ $produto->id }}</td>
-                                <td>{{ $produto->nome}}</td>
+                                <td>{{ $produto->nome }}</td>
+                                <td>{{ $produto->pivot->created_at->format('d/m/Y H:i:s') }}</td>
+                                <td>
+                                    <form id="form_{{ $produto->pivot->id }}"
+                                        action="{{ route('pedido-produto.destroy', ['pedidoProduto' => $produto->pivot->id, 'pedido_id' => $pedido->id]) }}"
+                                        method="post">
+                                        @method('delete')
+                                        @csrf
+                                        <a  href="#"
+                                            onclick="document.getElementById('form_{{ $produto->pivot->id }}').submit()"
+                                            >
+                                            Exlcuir
+                                        </a>
+                                    </form>
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>
                 </table>
 
                 @component('app.pedido_produto._components.form_create', ['pedido' => $pedido, 'produtos' => $produtos])
-
                 @endcomponent
             </div>
         </div>
