@@ -20,6 +20,10 @@ use Illuminate\Support\Facades\Route;
     O segundo é a função de callback
 */
 
+Route::get('home-padrao', function() {
+    return view('home');
+});
+
 Route::get('/', [PrincipalController::class, 'principal'])
     ->name('site.index')
     ->middleware('log.acesso');
@@ -34,16 +38,21 @@ Route::get('/contato', [ContatoController::class, 'contato'])
 Route::post('/contato', [ContatoController::class, 'salvar'])->
     name('site.contato');
 
-Route::get('/login/{erro?}', [LoginController::class, 'index'])->name('site.login');
-Route::post('/login', [LoginController::class, 'autenticar'])->name('site.login');
+Route::get('/login', [App\Http\Controllers\Auth\LoginController::class, 'showLoginForm'])->name('login');
 
-Route::middleware(['autenticacao:padrao,visitante'])->prefix('/app')->group(function(){
+
+// Route::get('/login/{erro?}', [LoginController::class, 'index'])->name('site.login');
+// Route::post('/login', [LoginController::class, 'autenticar'])->name('site.login');
+
+Route::middleware('auth')->prefix('/app')->group(function(){
 
     Route::get('/home', [HomeController::class, 'index'])
         ->name('app.home');
 
-    Route::get('/sair', [LoginController::class, 'sair'])
-        ->name('app.sair');
+    //logout
+    // Route::get('/sair', [LoginController::class, 'sair'])
+    //     ->name('app.sair');
+    Route::post('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
 
     //fornecedor
     Route::get('/fornecedor', [FornecedorController::class, 'index'])
@@ -61,11 +70,10 @@ Route::middleware(['autenticacao:padrao,visitante'])->prefix('/app')->group(func
     Route::get('/fornecedor/excluir/{id}', [FornecedorController::class, 'excluir'])
         ->name('app.fornecedor.excluir');
 
-        //produto
+    //produto
     Route::resource('produto', ProdutoController::class);
     //produtos detalhes
     Route::resource('produto-detalhe',ProdutoDetalheController::class);
-
     //cliente
     Route::resource('cliente', ClienteController::class);
     //pedido
@@ -75,7 +83,6 @@ Route::middleware(['autenticacao:padrao,visitante'])->prefix('/app')->group(func
     Route::get('pedido-produto/create/{pedido}', [PedidoProdutoController::class, 'create'])->name('pedido-produto.create');
     Route::post('pedido-produto/create/{pedido}', [PedidoProdutoController::class, 'store'])->name('pedido-produto.store');
     Route::delete('pedido-produto/destroy/{pedidoProduto}/{pedido_id}', [PedidoProdutoController::class, 'destroy'])->name('pedido-produto.destroy');
-
 });
 
 Route::get('/teste/{p1}/{p2}', [TesteController::class,'teste'])->name('teste');
@@ -89,4 +96,4 @@ Route::fallback(function() {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
