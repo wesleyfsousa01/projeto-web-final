@@ -38,7 +38,7 @@
         </div>
         <div class="localizacao">
             <h2>Localização</h2>
-            <img src="{{ asset('img/mapa.png') }}">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3843.538674347568!2d-47.33038848836462!3d-15.562842317235525!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9350a2f73fd3c36f%3A0xb8ffbb72c45a6bd6!2sIFG%20-%20C%C3%A2mpus%20Formosa!5e0!3m2!1spt-BR!2sbr!4v1725204898209!5m2!1spt-BR!2sbr" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
     </div>
 @endsection
