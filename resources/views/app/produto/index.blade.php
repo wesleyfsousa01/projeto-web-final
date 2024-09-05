@@ -18,6 +18,7 @@
                 <table border="1" width="100%">
                     <thead>
                         <tr>
+                            <th>Imagem</th>
                             <th>Nome</th>
                             <th>Descrição</th>
                             <th>Fornecedor</th>
@@ -34,6 +35,9 @@
                     <tbody>
                         @foreach ( $produtos as $produto )
                             <tr>
+                                <td>
+                                    <img src="{{ asset($produto->url) }} " alt="" width="100" height="100">
+                                </td>
                                 <td>{{ $produto->nome }}</td>
                                 <td>{{ $produto->descricao }}</td>
                                 <td>{{ $produto->fornecedor->nome }}</td>
