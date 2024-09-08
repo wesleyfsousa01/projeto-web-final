@@ -10,7 +10,7 @@
         <div class="menu">
             <ul class="nav nav-pills mb-3">
                 <li class="nav-item">
-                    <a class="nav-link active" href="{{route('produto.create')}}">Novo</a>
+                    <a class="nav-link active" href="{{route('cliente.create')}}">Novo</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Consulta</a>
