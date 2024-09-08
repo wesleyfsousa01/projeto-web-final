@@ -20,11 +20,28 @@ class PedidoProdutoController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create(Pedido $pedido)
+    public function create(Pedido $pedido, Request $request)
     {
-        $produtos = Produto::all();
-        $pedido->produtos; //eager loading
-        return view('app.pedido_produto.create', ['pedido' => $pedido, 'produtos' => $produtos]);
+        // Eager loading do relacionamento 'produtos' do pedido
+        $pedido->load('produtos');
+
+        // Armazena o valor de 'nome' ou null se não estiver presente
+        $nome = $request->input('nome'); // Pode retornar null se 'nome' não for enviado
+
+        // Construção da query com filtro opcional por nome ou descrição
+        $produtos = Produto::when($request->filled('nome'), function ($q) use ($nome) {
+            $q->where(function ($query) use ($nome) {
+                $query->where('nome', 'like', '%' . $nome . '%')
+                    ->orWhere('descricao', 'like', '%' . $nome . '%');
+            });
+        })->paginate(5);
+
+        // Retorna a view com os dados do pedido e dos produtos
+        return view('app.pedido_produto.create', [
+            'pedido'   => $pedido,
+            'produtos' => $produtos,
+            'request'  => $request,
+        ]);
     }
 
     /**
