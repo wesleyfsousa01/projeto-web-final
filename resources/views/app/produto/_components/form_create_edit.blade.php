@@ -3,7 +3,7 @@
     @csrf
     @method('PUT')
 @else
-<form method="POST" action="{{route('produto.store')}}">
+<form method="POST" action="{{route('produto.store')}}" enctype="multipart/form-data">
     @csrf
 @endif
 
@@ -29,5 +29,12 @@
         @endforeach
     </select>
     {{$errors->has('unidade_id') ? $errors->first('unidade_id') : '' }}
+
+    <input type="number" name="preco" class="borda-preta" placeholder="Preço" value="{{$produto->preco ?? old('preco')}}">
+    {{$errors->has('preco') ? $errors->first('preco') : '' }}
+
+    <input type="file" name="arquivo" class="borda-preta">
+    {{$errors->has('arquivo') ? $errors->first('arquivo') : '' }}
+
     <button type="submit" class="borda-preta">Cadastrar</button>
 </form>

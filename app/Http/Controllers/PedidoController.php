@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cliente;
+use App\Models\Item;
 use App\Models\Pedido;
 use Illuminate\Http\Request;
 
@@ -13,8 +14,7 @@ class PedidoController extends Controller
      */
     public function index(Request $request)
     {
-        $pedidos = Pedido::paginate(10);
-
+        $pedidos = Pedido::with('cliente')->paginate(10);
         return view('app.pedido.index', ['pedidos' => $pedidos, 'request' => $request->all()]);
     }
 
@@ -43,7 +43,10 @@ class PedidoController extends Controller
 
         $request->validate($regras, $feedback);
 
-        $pedido = Pedido::create($request->all());
+        $pedido = Pedido::create([
+            'cliente_id' => $request->cliente_id,
+            'total' => 0,
+        ]);
 
         return redirect()->route('pedido.index');
     }
@@ -75,8 +78,10 @@ class PedidoController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Pedido $pedido)
     {
-        //
+        $pedido->produtos()->detach();
+        $pedido->delete();
+        return redirect()->route('pedido.index');
     }
 }

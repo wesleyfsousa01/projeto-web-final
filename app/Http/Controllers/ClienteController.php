@@ -32,12 +32,14 @@ class ClienteController extends Controller
     {
         $regras = [
             'nome' => 'required|min:3|max:40',
+            'email' => 'email',
         ];
 
         $feedback = [
             'required' => 'O campo nome é obrigatório',
             'nome.min' => 'O campo nome dever no mínimo 3 carácteres',
-            'nome.max' => 'O campo nome dever no máximo 3 carácteres',
+            'nome.max' => 'O campo nome dever no máximo 40 carácteres',
+            'email' => 'O campo email é obrigatório',
         ];
 
         $request->validate($regras, $feedback);
@@ -52,7 +54,7 @@ class ClienteController extends Controller
      */
     public function show(string $id)
     {
-        //
+        return "Chegou no show() passando o ID: $id";
     }
 
     /**
@@ -60,7 +62,7 @@ class ClienteController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        return "Chegou no edit() passando o ID: $id";
     }
 
     /**
@@ -76,6 +78,6 @@ class ClienteController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        return "Chegou no destroy() passando o ID: $id";
     }
 }

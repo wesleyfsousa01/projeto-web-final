@@ -15,11 +15,14 @@
         </div>
         <div class="informacao-pagina">
             <div style="width: 90%; margin-left: auto; margin-right: auto;">
+
                 <table border="1" width="100%">
                     <thead>
                         <tr>
                             <th>ID Pedido</th>
                             <th>Cliente</th>
+                            <th>ID Cliente</th>
+                            <th></th>
                             <th></th>
                             <th></th>
                             <th></th>
@@ -30,6 +33,7 @@
                         @foreach ( $pedidos as $pedido )
                             <tr>
                                 <td>{{ $pedido->id }}</td>
+                                <td>{{ $pedido->cliente->nome }}</td>
                                 <td>{{ $pedido->cliente_id }}</td>
                                 <th><a href="{{ route('pedido-produto.create', ['pedido' => $pedido->id]) }}">Adicionar Produtos</a></th>
                                 <td>
