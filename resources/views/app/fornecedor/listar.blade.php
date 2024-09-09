@@ -4,36 +4,41 @@
 
 @section('conteudo')
 
-    <div class="conteudo-pagina">
+    <div>
 
         <div class="titulo-pagina-2">
-            <p>Fornecedor - Listar</p>
+            <p class="m-0 py-3">Fornecedor - Listar</p>
         </div>
 
-        <div class="menu">
-            <ul>
-                <li><a href="{{ route('app.fornecedor.adicionar') }}">Novo</a></li>
-                <li><a href="{{ route('app.fornecedor') }}">Consulta</a></li>
+        <div class="py-3 ps-5">
+            <ul class="nav nav-pills">
+                <li class="nav-item me-4">
+                    <a class="nav-link bg-primary text-white" href="{{ route('app.fornecedor.adicionar') }}">Novo</a>
+                </li>
+
+                <li class="nav-item me-4">
+                    <a class="nav-link bg-primary text-white" href="{{ route('app.fornecedor') }}">Pesquisar</a>
+                </li>
             </ul>
         </div>
 
         <div class="informacao-pagina">
-            <div style="width: 90%; margin-left: auto; margin-right: auto;">
-                <table border="1" width="100%">
-                    <thead class="table-dark">
-    <tr>
-        <th scope="col">Nome</th>
-        <th scope="col">Site</th>
-        <th scope="col">UF</th>
-        <th scope="col">E-mail</th>
-        <th scope="col" class="text-center">Editar</th>
-        <th scope="col" class="text-center">Excluir</th>
-    </tr>
-</thead>
+            <div class="table-responsive px-5">
+                <table class="table table-bordered">
+                    <thead class="table-secondary">
+                        <tr>
+                            <th scope="col">Nome</th>
+                            <th scope="col">Site</th>
+                            <th scope="col">UF</th>
+                            <th scope="col">E-mail</th>
+                            <th scope="col" class="text-center">Editar</th>
+                            <th scope="col" class="text-center">Excluir</th>
+                        </tr>
+                    </thead>
 
 
                     <tbody>
-                        @foreach($fornecedores as $fornecedor)
+                        @foreach ($fornecedores as $fornecedor)
                             <tr>
                                 <td>{{ $fornecedor->nome }}</td>
                                 <td>{{ $fornecedor->site }}</td>
@@ -44,19 +49,19 @@
                             </tr>
                             <tr>
                                 <td colspan="6">
-                                    <p>Lista de produtos</p>
-                                    <table border="1" style="margin:20px">
-                                        <thead>
+                                    <p>Lista de produtos:</p>
+                                    <table class="table table-bordered w-75">
+                                        <thead class="bg-success">
                                             <tr>
                                                 <th>ID</th>
                                                 <th>Nome</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach($fornecedor->produtos as $key => $produto)
+                                            @foreach ($fornecedor->produtos as $key => $produto)
                                                 <tr>
-                                                    <td>{{ $produto->id}}</td>
-                                                    <td>{{ $produto->nome}}</td>
+                                                    <td>{{ $produto->id }}</td>
+                                                    <td>{{ $produto->nome }}</td>
                                                 </tr>
                                             @endforeach
                                         </tbody>
@@ -67,26 +72,12 @@
                     </tbody>
                 </table>
 
-
-                {{ $fornecedores->appends($request)->links() }}
-
-                <!--
-                <br>
-                {{ $fornecedores->count() }} - Total de registros por página
-                <br>
-                {{ $fornecedores->total() }} - Total de registros da consulta
-                <br>
-                {{ $fornecedores->firstItem() }} - Número do primeiro registro da página
-                <br>
-                {{ $fornecedores->lastItem() }} - Número do último registro da página
-
-                -->
-                <br>
-                Exibindo {{ $fornecedores->count() }} fornecedores de {{ $fornecedores->total() }} (de {{ $fornecedores->firstItem() }} a {{ $fornecedores->lastItem() }})
+                <div class="d-flex justify-content-center mt-3">
+                    {{ $fornecedores->appends($request)->links('pagination::bootstrap-4') }}
+                </div>
             </div>
         </div>
 
     </div>
 
 @endsection
-

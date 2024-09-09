@@ -5,33 +5,34 @@
 @section('conteudo')
     <div class="conteudo-pagina">
         <div class="titulo-pagina-2">
-            <p>Fornecedor - Adicionar</p>
+            <p class="m-0 py-3">Fornecedor - Adicionar</p>
         </div>
-        <div class="menu">
-            <ul>
-                <li><a href="{{ route('app.fornecedor.adicionar') }}">Novo</a></li>
-                <li><a href="{{ route('app.fornecedor') }}">Consulta</a></li>
+        <div class="py-3 ps-5">
+            <ul class="nav nav-pills">
+                <li class="nav-item me-4">
+                    <a class="nav-link bg-primary text-white" href="{{ route('app.fornecedor') }}">Voltar</a>
+                </li>
             </ul>
         </div>
         <div class="informacao-pagina">
             {{$msg ?? ''}}
-            <div style="width: 30%; margin-left: auto; margin-right: auto;">
+            <div class="w-50 m-auto">
                 <form method="POST" action="{{ route('app.fornecedor.adicionar') }}">
                     <input type="hidden" name="id" value="{{ $fornecedor->id ?? ''}}">
                     @csrf
-                    <input type="text" name="nome" placeholder="Nome" class="borda-preta" value="{{$fornecedor->nome ?? old('nome')}}">
+                    <input type="text" name="nome" placeholder="Nome" class="form-control mb-2" value="{{$fornecedor->nome ?? old('nome')}}">
                     {{$errors->has('nome') ? $errors->first('nome') : ''}}
 
-                    <input type="text" name="site" class="borda-preta" placeholder="Site" value = "{{$fornecedor->site ?? old('site')}}">
+                    <input type="text" class="form-control mb-2" name="site" class="borda-preta" placeholder="Site" value = "{{$fornecedor->site ?? old('site')}}">
                     {{$errors->has('site') ? $errors->first('site') : ''}}
 
-                    <input type="text" name="uf" class="borda-preta" placeholder="UF" value="{{$fornecedor->uf ?? old('uf')}}">
+                    <input type="text" class="form-control mb-2" name="uf" class="borda-preta" placeholder="UF" value="{{$fornecedor->uf ?? old('uf')}}">
                     {{$errors->has('uf') ? $errors->first('uf') : ''}}
 
-                    <input type="text" name="email" class="borda-preta" placeholder="E-mail" value="{{$fornecedor->email ?? old('email')}}">
+                    <input type="text" class="form-control mb-2" name="email" class="borda-preta" placeholder="E-mail" value="{{$fornecedor->email ?? old('email')}}">
                     {{$errors->has('email') ? $errors->first('email') : ''}}
 
-                    <button type="submit" class="borda-preta">Cadastrar</button>
+                    <button type="submit" class="btn btn-success">Cadastrar</button>
                 </form>
             </div>
         </div>

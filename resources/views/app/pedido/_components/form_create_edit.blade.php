@@ -7,7 +7,7 @@
         @csrf
 @endif
 
-    <select name="cliente_id">
+    <select name="cliente_id" class="form-select">
         <option>-- Selecione um Cliente --</option>
 
         @foreach($clientes as $cliente)
@@ -15,6 +15,6 @@
         @endforeach
     </select>
     {{ $errors->has('cliente_id') ? $errors->first('cliente_id') : '' }}
-    
-    <button type="submit" class="borda-preta">Cadastrar</button>
+
+    <button type="submit" class="btn btn-success">Cadastrar</button>
 </form>

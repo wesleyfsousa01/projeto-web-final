@@ -5,49 +5,48 @@
 @section('conteudo')
     <div class="conteudo-pagina">
         <div class="titulo-pagina-2">
-            <p>Fornecedor - Pesquisar</p>
+            <p class="m-0 py-3">Fornecedor - Pesquisar</p>
         </div>
-        <div class="menu">
-            <ul class="nav nav-pills mb-3">
-                <li class="nav-item">
-                    <a class="nav-link active" href="{{route('cliente.create')}}">Novo</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Consulta</a>
+        <div class="py-3 ps-5">
+            <ul class="nav nav-pills">
+                <li class="nav-item me-4">
+                    <a class="nav-link bg-primary text-white" href="{{ route('app.fornecedor.adicionar') }}">Novo</a>
                 </li>
             </ul>
         </div>
         <div class="informacao-pagina">
-            <div style="width: 30%; margin-left: auto; margin-right: auto;">
+            <div class="w-50 m-auto">
                 <form method="POST" action="{{ route('app.fornecedor.listar') }}">
                     @csrf
-                    <div class="row g-3">
+                    <div>
                         <!-- Campo Nome -->
-                        <div class="col-md-3">
+                        <div class="mb-2">
                             <input type="text" name="nome" class="form-control" placeholder="Nome">
                         </div>
-                        
+
                         <!-- Campo Site -->
-                        <div class="col-md-3">
+                        <div class="mb-2">
                             <input type="text" name="site" class="form-control" placeholder="Site">
                         </div>
-                        
+
                         <!-- Campo UF -->
-                        <div class="col-md-2">
+                        <div class="mb-2">
                             <input type="text" name="uf" class="form-control" placeholder="UF">
                         </div>
-                        
+
                         <!-- Campo E-mail -->
-                        <div class="col-md-4">
+                        <div class="mb-2">
                             <input type="text" name="email" class="form-control" placeholder="E-mail">
                         </div>
                     </div>
-                    
-                    <div class="mt-3">
-                        <button type="submit" class="btn btn-primary w-100">Pesquisar</button>
+
+                    <div>
+                        <button type="submit" class="btn btn-success">
+                            Pesquisar
+                        </button>
                     </div>
                 </form>
-                
+
             </div>
         </div>
     </div>

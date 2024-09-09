@@ -72,12 +72,15 @@ Route::middleware('auth')->prefix('/app')->group(function(){
 
     //produto
     Route::resource('produto', ProdutoController::class);
-    //produtos detalhes
-    Route::resource('produto-detalhe',ProdutoDetalheController::class);
+    //produto-detalhes
+    Route::get('produto-detalhe/create/{produto}', [ProdutoDetalheController::class, 'create'])->name('produto-detalhe.create');
+    Route::post('produto-detalhe/store', [ProdutoDetalheController::class, 'store'])->name('produto-detalhe.store');
+    // Route::resource('produto-detalhe',ProdutoDetalheController::class);
     //cliente
     Route::resource('cliente', ClienteController::class);
     //pedido
     Route::resource('pedido', PedidoController::class);
+    Route::get('pedido/relatorio', [PedidoController::class,'relatorio']);
     //pedido-produto
     //Route::resource('pedido-produto', PedidoProdutoController::class);
     Route::get('pedido-produto/create/{pedido}', [PedidoProdutoController::class, 'create'])->name('pedido-produto.create');

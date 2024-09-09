@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Item;
 use App\Models\ItemDetalhe;
 use App\Models\ProdutoDetalhe;
 use App\Models\Unidade;
@@ -20,11 +21,11 @@ class ProdutoDetalheController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Item $produto)
     {
         $unidades = Unidade::all();
 
-        return view('app.produto_detalhe.create', ['unidades'=> $unidades]);
+        return view('app.produto_detalhe.create', ['unidades'=> $unidades, 'produto' => $produto]);
     }
 
     /**
@@ -32,8 +33,10 @@ class ProdutoDetalheController extends Controller
      */
     public function store(Request $request)
     {
+        $produto = Item::find($request->input('produto_id'));
+
         ProdutoDetalhe::create($request->all());
-        echo "cadastro realizado com sucesso";
+        return redirect()->route('produto.show', ['produto' => $produto]);
     }
 
     /**

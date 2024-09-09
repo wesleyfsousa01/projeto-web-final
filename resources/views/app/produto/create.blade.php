@@ -5,20 +5,17 @@
 @section('conteudo')
     <div class="conteudo-pagina">
         <div class="titulo-pagina-2">
-            <p>Produto - Adicionar</p>
+            <p class="m-0 py-3">Produto - Adicionar</p>
         </div>
-        <div class="menu">
-            <ul class="nav nav-pills mb-3">
+        <div class="py-3 ps-5">
+            <ul class="nav nav-pills">
                 <li class="nav-item">
-                    <a class="nav-link active" href="{{route('produto.create')}}">Novo</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Consulta</a>
+                    <a class="nav-link bg-primary text-white" href="{{ route('produto.index') }}">Voltar</a>
                 </li>
             </ul>
         </div>
         <div class="informacao-pagina">
-            <div style="width: 30%; margin-left: auto; margin-right: auto;">
+            <div class="container">
                 @component('app.produto._components.form_create_edit', ['unidades' => $unidades, 'fornecedores' => $fornecedores])
 
                 @endcomponent

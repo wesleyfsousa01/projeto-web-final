@@ -5,12 +5,16 @@
 @section('conteudo')
     <div class="conteudo-pagina">
         <div class="titulo-pagina-2">
-            <p>Pedido - Adicionar</p>
+            <p class="m-0 py-3">Pedidos - Adicionar</p>
         </div>
-        <div class="menu">
-            <ul>
-                <li><a href="{{route('pedido.index')}}">Voltar</a></li>
-                <li><a href="">Consulta</a></li>
+        <div class="py-3 ps-5">
+            <ul class="nav nav-pills">
+                <li class="nav-item me-4">
+                    <a class="nav-link bg-primary text-white" href="{{ route('pedido.index') }}">Voltar</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link bg-primary text-white" href="#">Consulta</a>
+                </li>
             </ul>
         </div>
         <div class="informacao-pagina">

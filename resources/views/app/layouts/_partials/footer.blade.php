@@ -1,3 +1,3 @@
-<footer style="position: fixed; bottom: 0; width: 100%; background-color: #007bff; color: white; text-align: center; padding: 5px 0;">
+<footer  class=" bg-primary text-white py-4 mt-5 text-center">
     <p>&copy; {{ date('Y') }} Super Gestão. Todos os direitos reservados.</p>
 </footer>

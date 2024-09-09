@@ -20,6 +20,10 @@ class Item extends Model
         return $this->hasOne(ItemDetalhe::class, 'produto_id', 'id');
     }
 
+    public function unidadeMedida(): HasOne {
+      return $this->hasOne(Unidade::class, 'id', 'unidade_id');
+    }
+
     public function fornecedor(): BelongsTo {
         return $this->belongsTo(Fornecedor::class);
     }

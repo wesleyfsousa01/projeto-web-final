@@ -15,7 +15,7 @@ class ProdutoController extends Controller
      */
     public function index(Request $request)
     {
-        $produtos = Item::with(['itemDetalhe', 'fornecedor'])->paginate(10);
+        $produtos = Item::with(['itemDetalhe', 'fornecedor'])->paginate(5);
 
         return view('app.produto.index', ['produtos' => $produtos, 'request' => $request->all()]);
     }
@@ -85,8 +85,9 @@ class ProdutoController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Produto $produto)
+    public function show(Item $produto)
     {
+        
         return view('app.produto.show', ['produto' => $produto]);
     }
 

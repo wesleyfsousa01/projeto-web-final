@@ -3,22 +3,26 @@
 @section('titulo', 'Pedido Produto')
 
 @section('conteudo')
-    <div class="conteudo-pagina">
+    <div>
         <div class="titulo-pagina-2">
-            <p>Adicionar Produtos ao Pedido</p>
+            <p class="m-0 py-3">Adicionar Produtos ao Pedido</p>
         </div>
-        <div class="menu">
-            <ul>
-                <li><a href="{{ route('pedido.index') }}">Voltar</a></li>
-                <li><a href="">Consulta</a></li>
+        <div class="py-3 ps-5">
+            <ul class="nav nav-pills">
+                <li class="nav-item me-4">
+                    <a class="nav-link bg-primary text-white" href="{{ route('pedido.index') }}">Voltar</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link bg-primary text-white" href="#">Consulta</a>
+                </li>
             </ul>
         </div>
         <div class="informacao-pagina">
 
-            <div style="width: 80%; margin-left: auto; margin-right: auto;">
+            <div class="table-responsive px-4">
                 <h4>Detalhes do Pedido:</h4>
-                <table border="1" width="100%">
-                    <thead>
+                <table class="table table-bordered table-hover">
+                    <thead class="table-secondary">
                         <tr>
                             <th>ID do pedido</th>
                             <th>ID do cliente</th>
@@ -35,11 +39,11 @@
                 </table>
             </div>
 
-            <div style="width: 80%; margin-left: auto; margin-right: auto;">
+            <div class="table-responsive px-4 mt-2">
                 <h4>Itens do pedido:</h4>
 
-                <table border="1" width="100%">
-                    <thead>
+                <table class="table table-bordered table-hover">
+                    <thead class="table-secondary">
                         <tr>
                             <th>Qtd</th>
                             <th>Val. Unt</th>
@@ -80,72 +84,71 @@
                         </tr>
                     </tfoot>
                 </table>
-
-                {{-- @component('app.pedido_produto._components.form_create', ['pedido' => $pedido, 'produtos' => $produtos])
-                @endcomponent --}}
             </div>
-            {{-- {{dd($pedido)}} --}}
-            {{-- Teste --}}
-            <div style="width: 100%; margin-top: 50px; margin-left: auto; margin-right: auto;">
-                <div style="width: 80%;  margin-left: auto; margin-right: auto;">
-                    <div style="width: 50%; margin-bottom: 50px;  margin-left: auto; margin-right: auto;">
-                        <form action="{{ route('pedido-produto.create', ['pedido' => $pedido->id]) }}">
-                            <label for="">Pesquisar produto:</label>
-                            <input type="text" placeholder="Informe o nome do produto" name="nome">
-                            <button type="submit">Buscar</button>
-                        </form>
-                    </div>
-                    <div>
-                        @if ($produtos->count())
-                            <table border="1" width="100%">
-                                <thead>
+            <hr>
+            <div>
+                <div class="container px-5 mb-5">
+                    <form action="{{ route('pedido-produto.create', ['pedido' => $pedido->id]) }}">
+                        <div class="mt-5">
+                            <label for="" class="form-label">Pesquisar produto:</label>
+                            <input type="text" placeholder="Informe o nome do produto" name="nome"
+                                class="form-control mb-2">
+                            <button type="submit" class="btn btn-success">Buscar</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="table-responsive px-4 mt-2">
+                    @if ($produtos->count())
+                        <table class="table table-bordered table-hover">
+                            <thead class="table-secondary">
+                                <tr>
+                                    <th>Imagem</th>
+                                    <th>Nome</th>
+                                    <th>Descrição</th>
+                                    <th>Estoque</th>
+                                    <th>Informe a quantidade</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($produtos as $produto)
                                     <tr>
-                                        <th>Imagem</th>
-                                        <th>Nome</th>
-                                        <th>Descrição</th>
-                                        <th>Estoque</th>
-                                        <th>Informe a quantidade</th>
-                                        <th></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($produtos as $produto)
-                                        <tr>
-                                            <td>
-                                                <img src="{{ asset($produto->url) }} " alt="" width="100"
-                                                    height="100">
+                                        <td>
+                                            <img src="{{ asset($produto->url) }} " alt="" width="100"
+                                                height="100">
+                                        </td>
+                                        <td>{{ $produto->nome }}</td>
+                                        <td>{{ $produto->descricao }}</td>
+                                        <td>{{ $produto->peso }}</td>
+
+                                        <form action="" method="POST"
+                                            {{ route('pedido-produto.store', ['pedido' => $pedido]) }}>
+                                            @csrf
+
+                                            <td style="width: 10%;">
+                                                <input type="number" name="quantidade"
+                                                    value="{{ old('quantidade') ? old('quantidade') : '' }}"
+                                                    placeholder="Qtd" class="form-control" style="max-width: 150px;">
+                                                {{ $errors->has('quantidade') ? $errors->first('quantidade') : '' }}
                                             </td>
-                                            <td>{{ $produto->nome }}</td>
-                                            <td>{{ $produto->descricao }}</td>
-                                            <td>{{ $produto->peso }}</td>
 
-                                            <form action="" method="POST"
-                                                {{ route('pedido-produto.store', ['pedido' => $pedido]) }}>
-                                                @csrf
+                                            <td>
+                                                <input type="hidden" name="produto_id" value="{{ $produto->id }}">
 
-                                                <td style="width: 10%;">
-                                                    <input type="number" name="quantidade"
-                                                        value="{{ old('quantidade') ? old('quantidade') : '' }}"
-                                                        placeholder="Qtd" class="borda-preta" style="max-width: 150px;">
-                                                    {{ $errors->has('quantidade') ? $errors->first('quantidade') : '' }}
-                                                </td>
+                                                <button type="submit" class="btn btn-success">
+                                                    Adicionar
+                                                </button>
+                                            </td>
+                                        </form>
+                                    </tr>
+                                @endforeach
+                            </tbody>
 
-                                                <td>
-                                                    <input type="hidden" name="produto_id" value="{{ $produto->id }}">
-
-                                                    <button type="submit">Adicionar</button>
-                                                </td>
-                                            </form>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-
-                            </table>
-                            {{ $produtos->appends($request->all())->links() }}
-                        @else
-                            <h1 style="color:black;">Nenhum registro encontrado</h1>
-                        @endif
-                    </div>
+                        </table>
+                        {{ $produtos->appends($request->all())->links('pagination::bootstrap-4') }}
+                    @else
+                        <h1 style="color:black;">Nenhum registro encontrado</h1>
+                    @endif
                 </div>
             </div>
         </div>
