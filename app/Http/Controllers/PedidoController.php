@@ -84,8 +84,4 @@ class PedidoController extends Controller
         $pedido->delete();
         return redirect()->route('pedido.index');
     }
-
-    public function relatorio(){
-        return view('pedido.relatorio');
-    }
 }

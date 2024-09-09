@@ -12,9 +12,6 @@
                 <li class="nav-item me-4">
                     <a class="nav-link bg-primary text-white" href="{{ route('pedido.index') }}">Voltar</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link bg-primary text-white" href="#">Consulta</a>
-                </li>
             </ul>
         </div>
         <div class="informacao-pagina">
@@ -145,9 +142,11 @@
                             </tbody>
 
                         </table>
-                        {{ $produtos->appends($request->all())->links('pagination::bootstrap-4') }}
+                        <div class="d-flex justify-content-center">
+                            {{ $produtos->appends($request->all())->links('pagination::bootstrap-4') }}
+                        </div>
                     @else
-                        <h1 style="color:black;">Nenhum registro encontrado</h1>
+                        <h3 style="color:black;">Nenhum registro encontrado</h3>
                     @endif
                 </div>
             </div>

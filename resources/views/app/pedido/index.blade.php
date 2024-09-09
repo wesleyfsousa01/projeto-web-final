@@ -29,6 +29,7 @@
                             <th></th>
                             <th></th>
                             <th></th>
+                            <th>Relatório</th>
                         </tr>
                     </thead>
 
@@ -50,6 +51,8 @@
                                     </form>
                                 </td>
                                 <td><a href="{{route('pedido.edit', ['pedido'=> $pedido->id])}}">Editar</a>
+                                </td>
+                                <td><a target="_blank" href="{{ route('pedido.relatorio', ['pedido' => $pedido->id]) }}">Gerar</a>
                                 </td>
                             </tr>
                         @endforeach
