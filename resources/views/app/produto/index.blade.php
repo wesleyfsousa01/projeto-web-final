@@ -7,10 +7,15 @@
         <div class="titulo-pagina-2">
             <p>Produto - Listar</p>
         </div>
+
         <div class="menu">
-            <ul>
-                <li><a href="{{route('produto.create')}}">Novo</a></li>
-                <li><a href="">Consulta</a></li>
+            <ul class="nav nav-pills mb-3">
+                <li class="nav-item">
+                    <a class="nav-link active" href="{{route('produto.create')}}">Novo</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Consulta</a>
+                </li>
             </ul>
         </div>
         <div class="informacao-pagina">

@@ -20,16 +20,17 @@
         <div class="informacao-pagina">
             <div style="width: 90%; margin-left: auto; margin-right: auto;">
                 <table border="1" width="100%">
-                    <thead>
-                        <tr>
-                            <th>Nome</th>
-                            <th>Site</th>
-                            <th>UF</th>
-                            <th>E-mail</th>
-                            <th></th>
-                            <th></th>
-                        </tr>
-                    </head>
+                    <thead class="table-dark">
+    <tr>
+        <th scope="col">Nome</th>
+        <th scope="col">Site</th>
+        <th scope="col">UF</th>
+        <th scope="col">E-mail</th>
+        <th scope="col" class="text-center">Editar</th>
+        <th scope="col" class="text-center">Excluir</th>
+    </tr>
+</thead>
+
 
                     <tbody>
                         @foreach($fornecedores as $fornecedor)

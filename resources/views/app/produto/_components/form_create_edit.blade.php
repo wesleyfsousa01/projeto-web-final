@@ -1,7 +1,7 @@
 @if (isset($produto->id))
-<form method="POST" action="{{route('produto.update', ['produto' => $produto->id])}}">
-    @csrf
-    @method('PUT')
+    <form method="POST" action="{{ route('produto.update', ['produto' => $produto->id]) }}">
+        @csrf
+        @method('PUT')
 @else
 <form method="POST" action="{{route('produto.store')}}" enctype="multipart/form-data">
     @csrf
